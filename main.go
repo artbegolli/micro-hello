@@ -8,8 +8,6 @@ import (
 	"github.com/artbegolli/micro-hello/metadata"
 	"github.com/micro/cli"
 	"github.com/micro/go-micro"
-	"github.com/micro/go-plugins/broker/kafka"
-	"github.com/micro/go-plugins/registry/consul"
 )
 
 type Greeter struct{}
@@ -21,13 +19,9 @@ func (g *Greeter) Hello(ctx context.Context, req *metadata.Request, rsp *metadat
 
 func main() {
 	fmt.Println("hello world")
-	registry := consul.NewRegistry()
-	broker := kafka.NewBroker()
 
 	service := micro.NewService(
 		micro.Name("greeter"),
-		micro.Registry(registry),
-		micro.Broker(broker),
 	)
 
 	// Init will parse the command line flags. Any flags set will
@@ -42,6 +36,14 @@ func main() {
 				os.Exit(0)
 			}
 		}),
+
+		// Add runtime flags
+		// We could do this below too
+		micro.Flags(cli.BoolFlag{
+			Name:  "run_client",
+			Usage: "Launch the client",
+		}),
+		
 	)
 
 	// By default we'll run the server unless the flags catch us
