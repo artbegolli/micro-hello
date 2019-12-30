@@ -43,7 +43,7 @@ func main() {
 			Name:  "run_client",
 			Usage: "Launch the client",
 		}),
-		
+
 	)
 
 	// By default we'll run the server unless the flags catch us

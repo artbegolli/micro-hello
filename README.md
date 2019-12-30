@@ -12,3 +12,17 @@ You can generate by running
 ```
 protoc --proto_path=$GOPATH/src:. --micro_out=. --go_out=. greeter.proto
 ```
+
+## Running
+
+We can first run the server
+
+```
+go run main.go
+```
+
+And the client based on the flag
+
+```
+go run main.go --run_client
+```
